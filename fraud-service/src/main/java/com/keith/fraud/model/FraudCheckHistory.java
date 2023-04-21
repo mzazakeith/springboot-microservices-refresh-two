@@ -28,7 +28,7 @@ public class FraudCheckHistory {
 
     @Column(nullable = false)
     @JsonProperty("customer_id")
-    private Integer customerId;
+    private UUID customerId;
 
     @Column(nullable = false)
     @JsonProperty("is_fraud")
