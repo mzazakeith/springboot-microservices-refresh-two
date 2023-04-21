@@ -1,5 +1,6 @@
 package com.keith.customerservice.service.impl;
 
+import com.keith.customerservice.helper.CustomerHelper;
 import com.keith.customerservice.model.Customer;
 import com.keith.customerservice.model.dto.CustomerRequest;
 import com.keith.customerservice.repository.CustomerRepository;
@@ -15,9 +16,10 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerHelper customerHelper;
     @Override
     public void registerCustomer(CustomerRequest customerRequest) {
+        log.info("In register customer method :{}", customerRequest);
         Customer customer = Customer.builder()
                 .firstName(customerRequest.getFirstName())
                 .lastName(customerRequest.getLastName())
@@ -25,7 +27,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
 //        todo: check if email is valid
 //        todo: check if email is taken
-        customerRepository.save(customer);
-        log.info("New customer registered:{}", customerRequest);
+        customerHelper.saveCustomer(customer);
     }
 }
