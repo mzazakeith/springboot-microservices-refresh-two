@@ -17,6 +17,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void send(NotificationRequest notificationRequest) {
+        log.info("In send notification method payload: {}", notificationRequest);
         Notification notification = Notification.builder()
                 .customerId(notificationRequest.getCustomerId())
                 .email(notificationRequest.getEmail())
