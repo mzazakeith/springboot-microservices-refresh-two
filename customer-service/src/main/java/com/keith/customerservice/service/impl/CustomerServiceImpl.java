@@ -27,6 +27,8 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
 //        todo: check if email is valid
 //        todo: check if email is taken
+//        todo: check if fraudster
         customerHelper.saveCustomer(customer);
+//        todo: send notification
     }
 }
