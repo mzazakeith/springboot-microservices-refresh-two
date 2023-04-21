@@ -35,10 +35,11 @@ public class CustomerServiceImpl implements CustomerService {
         UUID customerId = customerHelper.saveCustomer(customer);
         //        todo: check if fraudster
         FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-                "http://localhost:8081/api/v1/fraud-check?customer_id={customerId}",
+                "http://FRAUD-SERVICE/api/v1/fraud-check?customer_id={customerId}",
                 FraudCheckResponse.class,
                 customerId
         );
+        assert fraudCheckResponse != null;
         if(fraudCheckResponse.getIsFraudster()){
             throw new IllegalStateException("This customer is a fraudster");
         }
