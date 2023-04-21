@@ -21,6 +21,8 @@ public class CustomerServiceImpl implements CustomerService {
                 .lastName(customerRequest.getLastName())
                 .email(customerRequest.getEmail())
                 .build();
+//        todo: check if email is valid
+//        todo: check if email is taken
         customerRepository.save(customer);
         log.info("New customer registered:{}", customerRequest);
     }
