@@ -1,0 +1,54 @@
+package com.keith.fraud.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Data
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "t_fraud_check_history")
+public class FraudCheckHistory {
+
+    @Id
+    @JsonProperty("id")
+    @GeneratedValue(generator = "UUID")
+    @Column(updatable = false, nullable = false)
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
+
+    @Column(nullable = false)
+    @JsonProperty("customer_id")
+    private Integer customerId;
+
+    @Column(nullable = false)
+    @JsonProperty("is_fraud")
+    private Boolean isFraud;
+
+    @JsonProperty("created_at")
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @JsonProperty("updated_at")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+}
