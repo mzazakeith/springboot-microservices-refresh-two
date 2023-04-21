@@ -1,5 +1,6 @@
 package com.keith.notificationservice;
 
+import com.keith.notificationservice.model.dto.NotificationRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
