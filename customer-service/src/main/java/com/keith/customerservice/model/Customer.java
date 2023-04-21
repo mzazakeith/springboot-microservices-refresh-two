@@ -25,7 +25,6 @@ public class Customer {
 
     @Id
     @JsonProperty("id")
-    @ColumnDefault("random_uuid()")
     @GeneratedValue(generator = "UUID")
     @Column(updatable = false, nullable = false)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
