@@ -3,12 +3,16 @@ package com.keith.customerservice.service.impl;
 import com.keith.customerservice.helper.CustomerHelper;
 import com.keith.customerservice.model.Customer;
 import com.keith.customerservice.model.dto.CustomerRequest;
+import com.keith.customerservice.model.dto.FraudCheckResponse;
 import com.keith.customerservice.repository.CustomerRepository;
 import com.keith.customerservice.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -17,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerHelper customerHelper;
+    private final RestTemplate restTemplate;
     @Override
     public void registerCustomer(CustomerRequest customerRequest) {
         log.info("In register customer method :{}", customerRequest);
@@ -27,8 +32,16 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
 //        todo: check if email is valid
 //        todo: check if email is taken
-//        todo: check if fraudster
-        customerHelper.saveCustomer(customer);
+        UUID customerId = customerHelper.saveCustomer(customer);
+        //        todo: check if fraudster
+        FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
+                "http://localhost:8081/api/v1/fraud-check?customer_id={customerId}",
+                FraudCheckResponse.class,
+                customerId
+        );
+        if(fraudCheckResponse.getIsFraudster()){
+            throw new IllegalStateException("This customer is a fraudster");
+        }
 //        todo: send notification
     }
 }

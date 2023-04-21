@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -16,8 +18,9 @@ public class CustomerHelper {
     private final CustomerRepository customerRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Throwable.class)
-    public void saveCustomer(Customer customer){
-        customerRepository.save(customer);
+    public UUID saveCustomer(Customer customer){
+        customerRepository.saveAndFlush(customer);
         log.info("Customer saved : {}", customer);
+        return customer.getId();
     }
 }
