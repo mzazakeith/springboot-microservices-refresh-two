@@ -25,15 +25,19 @@ public class Notification {
     @Column(updatable = false, nullable = false)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
+
     @Column(nullable = false)
     @JsonProperty("customer_id")
     private UUID customerId;
+
     @Column(nullable = false)
     @JsonProperty("email")
     private String email;
+
     @Column(nullable = false)
     @JsonProperty("sender")
     private String sender;
+
     @Column(nullable = false)
     @JsonProperty("message")
     private String message;

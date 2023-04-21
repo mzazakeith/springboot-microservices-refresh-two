@@ -15,8 +15,8 @@ import java.util.UUID;
 public class NotificationRequest {
     @NotEmpty(message = "customer id cannot be blank")
     UUID customerId;
-    @NotEmpty(message = "customer name cannot be blank")
-    String customerName;
+    @NotEmpty(message = "customer email cannot be blank")
+    String email;
     @NotEmpty(message = "message cannot be blank")
     String message;
 }
