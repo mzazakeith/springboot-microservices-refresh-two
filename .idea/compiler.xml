@@ -8,8 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="fraud-service" />
-        <module name="customer-service" />
         <module name="discovery-server" />
+        <module name="customer-service" />
+        <module name="notification-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
       <module name="discovery-server" options="-parameters" />
       <module name="fraud-service" options="-parameters" />
       <module name="microservices-container" options="" />
+      <module name="notification-service" options="-parameters" />
     </option>
   </component>
 </project>
