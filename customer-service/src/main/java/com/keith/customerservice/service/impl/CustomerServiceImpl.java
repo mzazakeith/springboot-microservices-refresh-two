@@ -3,6 +3,7 @@ package com.keith.customerservice.service.impl;
 import com.keith.customerservice.helper.CustomerHelper;
 import com.keith.customerservice.model.Customer;
 import com.keith.customerservice.model.dto.CustomerRequest;
+import com.keith.customerservice.model.dto.CustomerResponse;
 import com.keith.customerservice.model.dto.FraudCheckResponse;
 import com.keith.customerservice.repository.CustomerRepository;
 import com.keith.customerservice.service.CustomerService;
@@ -23,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerHelper customerHelper;
     private final RestTemplate restTemplate;
     @Override
-    public void registerCustomer(CustomerRequest customerRequest) {
+    public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
         log.info("In register customer method :{}", customerRequest);
         Customer customer = Customer.builder()
                 .firstName(customerRequest.getFirstName())
@@ -32,17 +33,26 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
 //        todo: check if email is valid
 //        todo: check if email is taken
-        UUID customerId = customerHelper.saveCustomer(customer);
+        Customer savedCustomer = customerHelper.saveCustomer(customer);
         //        todo: check if fraudster
         FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
                 "http://FRAUD-SERVICE/api/v1/fraud-check?customer_id={customerId}",
                 FraudCheckResponse.class,
-                customerId
+                savedCustomer.getId()
         );
         assert fraudCheckResponse != null;
         if(fraudCheckResponse.getIsFraudster()){
             throw new IllegalStateException("This customer is a fraudster");
         }
 //        todo: send notification
+        return CustomerResponse
+                .builder()
+                .id(savedCustomer.getId())
+                .firstName(savedCustomer.getFirstName())
+                .lastName(savedCustomer.getLastName())
+                .email(savedCustomer.getEmail())
+                .createdAt(savedCustomer.getCreatedAt())
+                .updatedAt(savedCustomer.getUpdatedAt())
+                .build();
     }
 }

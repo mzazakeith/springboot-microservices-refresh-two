@@ -18,9 +18,9 @@ public class CustomerHelper {
     private final CustomerRepository customerRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Throwable.class)
-    public UUID saveCustomer(Customer customer){
+    public Customer saveCustomer(Customer customer){
         customerRepository.saveAndFlush(customer);
         log.info("Customer saved : {}", customer);
-        return customer.getId();
+        return customer;
     }
 }

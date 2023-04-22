@@ -2,8 +2,9 @@ package com.keith.customerservice.service;
 
 
 import com.keith.customerservice.model.dto.CustomerRequest;
+import com.keith.customerservice.model.dto.CustomerResponse;
 
 public interface CustomerService {
 
-     void registerCustomer(CustomerRequest customerRequest);
+     CustomerResponse registerCustomer(CustomerRequest customerRequest);
 }
