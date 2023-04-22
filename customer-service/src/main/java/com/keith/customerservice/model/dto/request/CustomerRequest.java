@@ -1,4 +1,4 @@
-package com.keith.customerservice.model.dto;
+package com.keith.customerservice.model.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

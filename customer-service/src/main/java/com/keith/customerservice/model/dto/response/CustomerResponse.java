@@ -1,4 +1,4 @@
-package com.keith.customerservice.model.dto;
+package com.keith.customerservice.model.dto.response;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
