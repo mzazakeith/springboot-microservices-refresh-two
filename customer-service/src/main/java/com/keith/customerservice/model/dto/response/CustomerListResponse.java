@@ -1,6 +1,7 @@
 package com.keith.customerservice.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,9 +23,16 @@ public class CustomerListResponse {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class MetaData {
+        @JsonProperty("record_count")
         private long recordCount;
+
+        @JsonProperty("current_page")
         private int currentPage;
+
+        @JsonProperty("number_of_pages")
         private int numberOfPages;
+
+        @JsonProperty("limit")
         private int limit;
     }
 }
