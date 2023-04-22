@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -32,7 +33,7 @@ public class CustomerController {
         return new ResponseEntity<CustomerResponse>(customerService.registerCustomer(customerRequest),HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("list")
     public ResponseEntity<CustomerListResponse> getAllCustomers(
             @RequestParam(value = "page_number", required = false, defaultValue = "0") @Min(0) int page,
             @RequestParam(value = "page_size", required = false, defaultValue = "20") @Min(1) int limit,
@@ -43,5 +44,12 @@ public class CustomerController {
         Sort.Order order = Sort.Order.by(sortBy).with(direction);
         Pageable pageable = PageRequest.of(page, limit, Sort.by(order));
         return ResponseEntity.ok(customerService.getAllCustomers(pageable));
+    }
+
+    @GetMapping
+    public ResponseEntity<CustomerResponse> getCustomerById(
+            @RequestParam(value = "customer_id") UUID customerId
+    ){
+        return ResponseEntity.ok(customerService.getCustomerById(customerId));
     }
 }

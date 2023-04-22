@@ -18,6 +18,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -90,4 +92,19 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("Customers Meta for this request {}", customersFound.getMeta());
         return customersFound;
     }
+
+    @Override
+    public CustomerResponse getCustomerById(UUID customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        if (customer.isPresent()) {
+            log.info("Customer Found");
+            return modelMapper.map(customer.get(), CustomerResponse.class);
+        } else {
+            log.error("Customer with id {} not found", customerId);
+//            todo: error here for customer not found
+            return null;
+        }
+    }
+
+
 }
