@@ -1,5 +1,6 @@
 package com.keith.customerservice.model.dto.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class CustomerRequest {
     @NotEmpty(message = "Last name cannot be blank")
     String lastName;
 
+    @Email(message = "Please enter a valid email")
     @NotEmpty(message = "Email cannot be blank")
     String email;
 }
