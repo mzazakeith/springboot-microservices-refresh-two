@@ -2,6 +2,7 @@ package com.keith.productservice.controller;
 
 import com.keith.productservice.model.dto.request.ProductListResponse;
 import com.keith.productservice.model.dto.request.ProductRequest;
+import com.keith.productservice.model.dto.request.ProductResponse;
 import com.keith.productservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,8 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductRequest productRequest){
-        productService.createProduct(productRequest);
+    public ProductResponse createProduct(@RequestBody ProductRequest productRequest){
+        return productService.createProduct(productRequest);
     }
 
     @GetMapping
