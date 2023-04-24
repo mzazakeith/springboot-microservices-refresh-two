@@ -1,6 +1,8 @@
 package com.keith.productservice.controller;
 
+import com.keith.productservice.model.dto.ProductListResponse;
 import com.keith.productservice.model.dto.ProductRequest;
+import com.keith.productservice.model.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,7 @@ public class ProductController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllProducts(){
+    public ProductListResponse getAllProducts(){
         return productService.getAllProducts();
     }
 }
